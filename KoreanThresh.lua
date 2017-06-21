@@ -153,6 +153,10 @@ end
 local timer = {state = 0, tick = GetTickCount(), casting = GetTickCount() - 1000, mouse = mousePos}
 function KoreanThresh:fast(spell, unit, prediction, delay)
 	local target = prediction:To2D()
+	local unit2 = unit
+	local myHeroPos = myHero.pos
+	local targetPos = unit2.pos
+	local shootsbackwards
 	local ticker = GetTickCount()
 	
 
@@ -172,7 +176,12 @@ function KoreanThresh:fast(spell, unit, prediction, delay)
 					return
 				end
 				Control.SetCursorPos(target.x, target.y)
-				Control.CastSpell(spell)
+				if mousePos:DistanceTo(targetPos) > myHeroPos:DistanceTo(targetPos) then
+					return
+				else
+					Control.CastSpell(spell)
+				end
+				
 
 			end
 			if ticker - timer.tick > 600  then
