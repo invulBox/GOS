@@ -172,7 +172,7 @@ function KoreanThresh:fast(spell, unit, prediction, delay)
 		
 		if ticker - timer.tick >= 100 and ticker - timer.tick <= 3000 then
 			
-			if ticker - timer.tick < 600 and ticker - timer.tick > 400 then
+			if ticker - timer.tick < 1000 and ticker - timer.tick > 200 then
 				if self.predi:DistanceTo(unit.pos) > 200 then
 					return
 				end
@@ -185,7 +185,7 @@ function KoreanThresh:fast(spell, unit, prediction, delay)
 				
 
 			end
-			if ticker - timer.tick > 600  then
+			if ticker - timer.tick > 1001  then
 				Control.SetCursorPos(timer.mouse)
 				timer.state = 0
 				
