@@ -249,7 +249,7 @@ function KoreanMorgana:StartQ()
 				local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
 				Draw.Circle(posAfterAutoAttack)
 				self:fast(HK_Q, target, posAfterAutoAttack, 100) end,
-				self.ShootDelay[target.charName])
+				self.ShootDelay[target.charName].duration)
 				self.ShootDelay[target.charName] = nil	
 			else	
 				if myHero.pos:DistanceTo(target.pos) < 750 and target.ms < 400 then
