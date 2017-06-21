@@ -69,7 +69,7 @@ function KoreanThresh:Engage()
 			self.startECombo = false
 		end
 
-		if GetTickCount() - self.lastTick > 4000 then self.startECombo = false end
+		if GetTickCount() - self.lastTick > 6000 then self.startECombo = false end
 
 	end
 end
@@ -107,7 +107,7 @@ function KoreanThresh:QEintoR()
 			end
 		end
 
-		if GetTickCount() - self.lastTick > 4000 then
+		if GetTickCount() - self.lastTick > 6000 then
 			self.startQERCombo = false
 		end
 end	
