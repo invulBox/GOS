@@ -96,13 +96,13 @@ function KoreanThresh:QEintoR()
 			end
 		end
 
-		if self.startQERCombo == true and self:IsDown(_Q) == true and IsReady(_R) then
+		if self.startQERCombo == true and self:IsDown(_Q) == true and self:IsReady(_R) then
 			if GetTickCount() - self.lastTick > 200 then
 				Control.CastSpell(HK_R)
 			end
 		end
 
-		if self.startQERCombo == true and self:IsDown(_R) and IsReady(_E) == true then
+		if self.startQERCombo == true and self:IsDown(_R) and self:IsReady(_E) == true then
 			if GetTickCount() - self.lastTick > 1500 then
 				Control.CastSpell(HK_E, myHero.pos:Shortened(target.pos, -200))
 				self.startQERCombo = false
@@ -152,6 +152,7 @@ function KoreanThresh:Prediction(unit)
 end
 local timer = {state = 0, tick = GetTickCount(), casting = GetTickCount() - 1000, mouse = mousePos}
 function KoreanThresh:fast(spell, unit, prediction, delay)
+	if unit == nil then return end
 	local target = prediction:To2D()
 	local unit2 = unit
 	local myHeroPos = myHero.pos
@@ -159,7 +160,7 @@ function KoreanThresh:fast(spell, unit, prediction, delay)
 	local shootsbackwards
 	local ticker = GetTickCount()
 	
-
+	
 	if timer.state == 0 and ticker - timer.tick > delay then
 		timer.state = 1
 		timer.mouse = mousePos
