@@ -69,13 +69,13 @@ function KoreanThresh:Engage()
 			self.startECombo = false
 		end
 
-		if GetTickCount() - self.lastTick > 7000 then self.startECombo = false end
+		if GetTickCount() - self.lastTick > 4000 then self.startECombo = false end
 
 	end
 end
 
 function KoreanThresh:QEintoR()
-	local target = (_G.GOS and _G.GOS:GetTarget(1100,"AD"))
+	local target = (_G.GOS and _G.GOS:GetTarget(1080,"AD"))
 	if target == nil then return 
 	end
 		if self.startQERCombo == false then
@@ -107,7 +107,7 @@ function KoreanThresh:QEintoR()
 			end
 		end
 
-		if GetTickCount() - self.lastTick > 5000 then
+		if GetTickCount() - self.lastTick > 4000 then
 			self.startQERCombo = false
 		end
 end	
@@ -281,7 +281,7 @@ function KoreanThresh:Draw()
 
 
 	if (_G.GOS and _G.GOS:GetMode() == "Combo") then
-		if GetTickCount() - timer.tick > 6000 then
+		if GetTickCount() - timer.tick > 4000 then
 			timer.state = 0
 		end
 		if self.Menu.Combo.KTMataEngage:Value() and self.Menu.Combo.HotKeyChanger:Value() then
