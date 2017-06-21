@@ -147,7 +147,7 @@ end
 
 function KoreanMorgana:Prediction()
 	local target = (_G.GOS and _G.GOS:GetTarget(800, "AD"))
-
+	if target == nil then return end
 	local pathingVector = self:xPath(target)
 	local distanceToTarget = myHero.pos:DistanceTo(target.pos)
 	local predictionVector
