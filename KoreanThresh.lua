@@ -161,7 +161,7 @@ function KoreanThresh:fast(spell, unit, prediction, delay)
 	local ticker = GetTickCount()
 	
 	
-	if timer.state == 0 and ticker - timer.casting > delay + Game.Latency() then
+	if timer.state == 0 and ticker - timer.tick > delay then
 		timer.state = 1
 		timer.mouse = mousePos
 		timer.tick = ticker
@@ -181,12 +181,11 @@ function KoreanThresh:fast(spell, unit, prediction, delay)
 					return
 				else
 					Control.CastSpell(spell)
-					timer.casting = ticker + delay
 				end
 				
 
 			end
-			if ticker - timer.casting > Game.Latency()  then
+			if ticker - timer.tick > 1001  then
 				Control.SetCursorPos(timer.mouse)
 				timer.state = 0
 				
