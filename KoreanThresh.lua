@@ -96,13 +96,13 @@ function KoreanThresh:QEintoR()
 			end
 		end
 
-		if self.startQERCombo == true and self:IsDown(_Q) == true then
+		if self.startQERCombo == true and self:IsDown(_Q) == true and IsReady(_R) then
 			if GetTickCount() - self.lastTick > 200 then
 				Control.CastSpell(HK_R)
 			end
 		end
 
-		if self.startQERCombo == true and self:IsDown(_R) == true then
+		if self.startQERCombo == true and self:IsDown(_R) and IsReady(_E) == true then
 			if GetTickCount() - self.lastTick > 1500 then
 				Control.CastSpell(HK_E, myHero.pos:Shortened(target.pos, -200))
 				self.startQERCombo = false
