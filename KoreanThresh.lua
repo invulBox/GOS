@@ -161,7 +161,7 @@ function KoreanThresh:fast(spell, unit, prediction, delay)
 	local ticker = GetTickCount()
 	
 	
-	if timer.state == 0 and ticker - timer.tick > delay then
+	if timer.state == 0 and ticker - timer.tick > timer.casting > delay and target:ToScreen().onScreen then
 		timer.state = 1
 		timer.mouse = mousePos
 		timer.tick = ticker
