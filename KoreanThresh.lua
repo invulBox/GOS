@@ -80,10 +80,10 @@ function KoreanThresh:QEintoR()
 	if target == nil then return end
 	if target == nil or self:IsValidTarget(target,1080) == false then return 
 	end
-		if self.startQERCombo == false then
-				if self:IsReady(_Q) and target:GetCollision(Q.width,Q.speed,Q.delay) == 0 then
+		if self:IsReady(_Q) and target:GetCollision(Q.width,Q.speed,Q.delay) == 0 then
 					self:fast(HK_Q, target, self:Prediction(target), 200)
-				end
+		end
+		if self.startQERCombo == false then
 				if self:IsDown(_Q) == true and self:GetBuffs(target, "ThreshQ") then
 					self.lastTick = GetTickCount()
 					self.startQERCombo = true
