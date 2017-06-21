@@ -258,7 +258,7 @@ function KoreanMorgana:StartQ()
 					local posAfterAutoAttack = target.pos:Extended(self.lastPath, target.ms / 7)
 				end
 				Draw.Circle(posAfterAutoAttack)
-				self:fast(HK_Q, target, posAfterAutoAttack, 100)
+				self:fast(HK_Q, target, posAfterAutoAttack, 50)
 			end
 		elseif self.Menu.Combo.HotKeyChanger:Value() ~= true then
 			self:fast(HK_Q, target, self:Prediction(target), 200)
