@@ -260,7 +260,7 @@ function KoreanThresh:Draw()
 	if myHero.dead then return end
 	
 	
-	if GetTickCount() - timer.tick > 4000 then timer.state = 0 end
+	if GetTickCount() - timer.tick > 6000 then timer.state = 0 end
 					
 			
     local textPos2 = myHero.pos:To2D()
