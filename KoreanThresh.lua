@@ -307,11 +307,11 @@ function KoreanThresh:Draw()
 
 
 	if self.Menu.Combo.KTMataEngage:Value() and self.Menu.Combo.HotKeyChanger:Value() then
-		Draw.Text("KT Mata", textPos3.x + 20, textPos3.y)
+		Draw.Text("Enabled Combo: KT Mata Engage [E->AA->Q]", 630, 100)
 		Draw.Text(string.format("%s %s", "Enabled Combo: ", "KT Mata Engage [E->AA->Q]"), textPos2.x, textPos2.y + 50)
 	end
 	if self.Menu.Combo.SKTT1WolfCombo:Value() and self.Menu.Combo.HotKeyChanger:Value() == false then
-		Draw.Text("SKT T1 Wolf", textPos3.x + 20, textPos3.y)
+		Draw.Text("Enabled Combo: SKT T1 Wolf Combo [Q->R->AA->E]", 630, 100)
 		Draw.Text(string.format("%s %s", "Enabled Combo: ", "SKT T1 Wolf Combo [Q->R->AA->E]"), textPos2.x, textPos2.y + 50)
 	end
 
