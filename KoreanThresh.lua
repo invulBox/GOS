@@ -48,7 +48,6 @@ function KoreanThresh:Engage()
 	
 	local target = (_G.GOS and _G.GOS:GetTarget(1080,"AD"))
 	if target == nil then return end
-	if GetTickCount() - self.lastTick > 6000 then self.startECombo = false end
 	if target == nil or self:IsValidTarget(target,1080) == false then return end
 		if target.pos:DistanceTo(myHero.pos) >= 650 and self:IsReady(_Q) and self.Menu.Combo.HailMary:Value() and target:GetCollision(Q.width,Q.speed,Q.delay) == 0 then
 			self:fast(HK_Q, target, self:Prediction(target), 200)
@@ -79,7 +78,6 @@ end
 function KoreanThresh:QEintoR()
 	local target = (_G.GOS and _G.GOS:GetTarget(1080,"AD"))
 	if target == nil then return end
-	if GetTickCount() - self.lastTick > 6000 then self.startQERCombo = false end
 	if target == nil or self:IsValidTarget(target,1080) == false then return 
 	end
 		if self.startQERCombo == false then
