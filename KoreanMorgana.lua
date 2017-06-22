@@ -177,7 +177,7 @@ function KoreanMorgana:Prediction(unit)
 	local distanceToTarget = myHero.pos:DistanceTo(target.pos)
 	local predictionVector
 	if self.predictionModified.dodger == false then
-		predictionVector = target.pos:Extended(pathingVector, (distanceToTarget / 3) + target.ms - (self.Menu.Prediction.Am:Value() + 200) - 50)
+		predictionVector = target.pos:Extended(pathingVector, (distanceToTarget / 3) + target.ms - (self.Menu.Prediction.Am:Value() + 200) )
 		
 		Draw.Circle(predictionVector)
 		return predictionVector
@@ -252,7 +252,7 @@ function KoreanMorgana:StartQ()
 				self.ShootDelay[target.charName])
 				self.ShootDelay[target.charName] = nil	
 			else
-				local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
+				local posAfterAutoAttack = target.pos:Extended(self.lastPath, 75)
 				Draw.Circle(posAfterAutoAttack)
 				self:fast(HK_Q, target, posAfterAutoAttack, 100)
 			end
