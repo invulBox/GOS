@@ -336,10 +336,10 @@ function KoreanMorgana:Draw()
 		self.lastPath = self:xPath(target)
 	end
 	if self.Menu.Combo.ComboE:Value() then
-		AutoE()
+		self:AutoE()
 	end
 	if self.Menu.Combo.ComboW:Value() then
-		AutoW()
+		self:AutoW()
 	end
 	if (_G.GOS and _G.GOS:GetMode() == "Combo") then
 		if GetTickCount() - timer.tick > 4000 then
