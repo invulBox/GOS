@@ -68,7 +68,7 @@ function KoreanCaitlyn:Prediction(unit)
 	if dirt > 700 then
 		offset = 35
 	elseif dirt < 500 then
-		offset = 100
+		offset = 50
 	end
 	if self.predictionModified.dodger == false then
 		predictionVector = target.pos:Extended(pathingVector, (distanceToTarget / 3) + target.ms - (self.Menu.Prediction.Am:Value() + 200) - offset)
