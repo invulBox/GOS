@@ -240,6 +240,8 @@ function KoreanCaitlyn:TrapGod()
 			local predic = target.pos:Extended(self:xPath(target), 375)
 			if predic:DistanceTo(myHero.pos) > 700 then return end		
 			self:fast(HK_W, _W, target, predic, 100, false, true)
+		elseif dist < 150
+			self:fast(HK_W, _W, target, myHero.pos, 100, false, true)
 		end
 	end
 		
