@@ -151,12 +151,12 @@ function KoreanCaitlyn:KTDeft(target, target2)
 				Draw.Circle(posAfterAutoAttack)
 				_G.EOW:SetMovements(false)
 				_G.EOW:SetAttacks(false)
-				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 50, false, false)
+				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 35, false, false)
 				_G.EOW:SetMovements(true)
 				_G.EOW:SetAttacks(true)	
 		else
 			
-			self:fast(HK_Q, _Q, target, self:Prediction(target), 75, false, false)
+			self:fast(HK_Q, _Q, target, self:Prediction(target), 35, false, false)
 		end
 		
 	end
@@ -241,7 +241,7 @@ function KoreanCaitlyn:TrapGod()
 		local dist = target.pos:DistanceTo(myHero.pos)
 		if dist < 1200 and dist > 201 then
 			local predic = target.pos:Extended(self:xPath(target), 375)
-			if predic:DistanceTo(myHero.pos) > 700 then return end		
+			if predic:DistanceTo(myHero.pos) > 1200 then return end		
 			self:fast(HK_W, _W, target, predic, 100, false, true)
 		elseif dist < 150 then
 			self:fast(HK_W, _W, target, myHero.pos, 100, false, true)
