@@ -335,7 +335,7 @@ function KoreanCaitlyn:Draw()
 			timer.state = 0
 	end
 
-	if _G.GOS:GetMode() == "Combo" then
+	if EOW.CurrentMode == 1 then
 		if self.Menu.Combo.HotKeyChanger:Value() == false then
 			self:KTDeft(target, target2)
 		end
