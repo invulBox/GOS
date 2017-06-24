@@ -64,8 +64,11 @@ function KoreanCaitlyn:Prediction(unit)
 	local pathingVector = self:xPath(target)
 	local distanceToTarget = myHero.pos:DistanceTo(target.pos)
 	local predictionVector
-	if myHero.pos:DistanceTo(unit.pos) > 700 then
+	local dirt = myHero.pos:DistanceTo(unit.pos)
+	if dirt > 700 then
 		offset = 35
+	elseif dirt < 500 then
+		offset = 100
 	end
 	if self.predictionModified.dodger == false then
 		predictionVector = target.pos:Extended(pathingVector, (distanceToTarget / 3) + target.ms - (self.Menu.Prediction.Am:Value() + 200) - offset)
