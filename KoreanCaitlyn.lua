@@ -206,7 +206,6 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 					--return
 				--else
 				if trap == true then
-						PrintChat("Chaning")
 						self.ctimes = true
 				end
 					Control.CastSpell(spell)
