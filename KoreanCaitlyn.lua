@@ -242,9 +242,9 @@ function KoreanCaitlyn:TrapGod()
 		local target = self:GetValidEnemy()
 		if target == nil then return end
 		local dist = target.pos:DistanceTo(myHero.pos)
-		if dist < 1200 and dist > 201 then
+		if dist < 600 and dist > 201 then
 			local predic = target.pos:Extended(self:xPath(target), 375)
-			if predic:DistanceTo(myHero.pos) > 1200 then return end		
+			if predic:DistanceTo(myHero.pos) > 600 then return end		
 			self:fast(HK_W, _W, target, predic, 100, false, true)
 		elseif dist < 150 then
 			self:fast(HK_W, _W, target, myHero.pos, 100, false, true)
