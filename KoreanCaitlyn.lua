@@ -129,19 +129,21 @@ function KoreanCaitlyn:KTDeft(target, target2)
 	if target.pos:DistanceTo(myHero.pos) < 600 and self:IsReady(_E) and self.Menu.Combo.ComboE:Value() and target:GetCollision(E.width,E.speed,E.delay) == 0 then
 		if target.activeSpell.windup > 0.1 then
 			local possAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
+			_G.EOW:SetMovements(false)
+			_G.EOW:SetAttacks(false)
+
+			self:fast(HK_E, _E, target, possAfterAutoAttack, 10, false, false)
+			_G.EOW:SetMovements(true)
+			_G.EOW:SetAttacks(true)
+
+			startEQCombo = true
+		else
+			_G.EOW:SetMovements(false)
+			_G.EOW:SetAttacks(false)
+			self:fast(HK_E, _E, target, self:Prediction(target), 10, false, false)
 			
 			_G.EOW:SetMovements(true)
 			_G.EOW:SetAttacks(true)
-			self:fast(HK_E, _E, target, possAfterAutoAttack, 10, false, false)
-			_G.EOW:SetMovements(false)
-			_G.EOW:SetAttacks(false)
-			startEQCombo = true
-		else
-			_G.EOW:SetMovements(true)
-			_G.EOW:SetAttacks(true)
-			self:fast(HK_E, _E, target, self:Prediction(target), 10, false, false)
-			_G.EOW:SetMovements(false)
-			_G.EOW:SetAttacks(false)
 			startEQCombo = true
 		end
 	end
@@ -150,11 +152,12 @@ function KoreanCaitlyn:KTDeft(target, target2)
 		if target.activeSpell.windup > 0.1 then
 			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
 				Draw.Circle(posAfterAutoAttack)
-				_G.EOW:SetMovements(true)
-			_G.EOW:SetAttacks(true)
-				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 35, false, false)
 				_G.EOW:SetMovements(false)
-			_G.EOW:SetAttacks(false)
+			_G.EOW:SetAttacks(false)	
+				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 35, false, false)
+			
+			_G.EOW:SetMovements(true)
+			_G.EOW:SetAttacks(true)
 		else
 			
 			self:fast(HK_Q, _Q, target, self:Prediction(target), 35, false, false)
@@ -362,17 +365,19 @@ function KoreanCaitlyn:AutoQ()
 		if target.activeSpell.windup > 0.1 then
 			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
 				Draw.Circle(posAfterAutoAttack)
+				_G.EOW:SetMovements(false)
+				_G.EOW:SetAttacks(false)
+				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 50, true, false)
+					
 				_G.EOW:SetMovements(true)
 				_G.EOW:SetAttacks(true)
-				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 50, true, false)
-				_G.EOW:SetMovements(false)
-				_G.EOW:SetAttacks(false)	
 		else
-			_G.EOW:SetMovements(true)
-				_G.EOW:SetAttacks(true)
-			self:fast(HK_Q, _Q, target, self:Prediction(target), 50, true, false)
 			_G.EOW:SetMovements(false)
-				_G.EOW:SetAttacks(false)	
+				_G.EOW:SetAttacks(false)
+			self:fast(HK_Q, _Q, target, self:Prediction(target), 50, true, false)
+				
+				_G.EOW:SetMovements(true)
+				_G.EOW:SetAttacks(true)
 		end
 	end
 end
