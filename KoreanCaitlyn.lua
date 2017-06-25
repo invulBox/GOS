@@ -124,16 +124,14 @@ function KoreanCaitlyn:KTDeft(target, target2)
 	if target.pos:DistanceTo(myHero.pos) < 630 and self:IsReady(_E) and self.Menu.Combo.ComboE:Value() and target:GetCollision(E.width,E.speed,E.delay) == 0 then
 		if target.activeSpell.windup > 0.1 then
 			local possAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
-			_G.EOW:SetMovements(false)
-				_G.EOW:SetAttacks(false)
+			
 
 			self:fast(HK_E, _E, target, possAfterAutoAttack, 10, false, false)
 			
 
 			startEQCombo = true
 		else
-			_G.EOW:SetMovements(false)
-				_G.EOW:SetAttacks(false)
+			
 			self:fast(HK_E, _E, target, self:Prediction(target), 10, false, false)
 				
 			startEQCombo = true
@@ -145,15 +143,13 @@ function KoreanCaitlyn:KTDeft(target, target2)
 			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
 				Draw.Circle(posAfterAutoAttack)
 				
-				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 0, false, false)
-			_G.EOW:SetMovements(true)
-				_G.EOW:SetAttacks(true)
+				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 10, false, false)
+			
 			
 		else
 			
-			self:fast(HK_Q, _Q, target, self:Prediction(target), 0, false, false)
-			_G.EOW:SetMovements(true)
-				_G.EOW:SetAttacks(true)
+			self:fast(HK_Q, _Q, target, self:Prediction(target), 10, false, false)
+			
 		end
 		
 	end
@@ -197,7 +193,8 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 				if self.predi:DistanceTo(unit.pos) > 1250 or target:DistanceTo(unit2.pos:To2D()) > 600 then
 					return
 				end
-				
+				_G.EOW:SetMovements(false)
+				_G.EOW:SetAttacks(false)
 
 				Control.SetCursorPos(target.x, target.y)
 				--if mousePos:DistanceTo(targetPos) > myHeroPos:DistanceTo(targetPos) then
@@ -208,7 +205,8 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 				end
 					Control.CastSpell(spell)
 
-				
+				_G.EOW:SetMovements(true)
+				_G.EOW:SetAttacks(true)
 					
 				--end
 				
@@ -359,10 +357,10 @@ function KoreanCaitlyn:AutoQ()
 			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
 				Draw.Circle(posAfterAutoAttack)
 				
-				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 0, true, false)
+				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 10, true, false)
 				
 		else
-			self:fast(HK_Q, _Q, target, self:Prediction(target), 0, true, false)
+			self:fast(HK_Q, _Q, target, self:Prediction(target), 10, true, false)
 			
 		end
 	end
