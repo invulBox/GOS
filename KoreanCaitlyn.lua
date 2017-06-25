@@ -141,9 +141,9 @@ function KoreanCaitlyn:KTDeft(target, target2)
 			_G.EOW:SetMovements(false)
 			_G.EOW:SetAttacks(false)
 			self:fast(HK_E, _E, target, self:Prediction(target), 10, false, false)
-			
-			_G.EOW:SetMovements(true)
-			_G.EOW:SetAttacks(true)
+				_G.EOW:SetMovements(true)
+				_G.EOW:SetAttacks(true)
+
 			startEQCombo = true
 		end
 	end
@@ -154,13 +154,13 @@ function KoreanCaitlyn:KTDeft(target, target2)
 				Draw.Circle(posAfterAutoAttack)
 				_G.EOW:SetMovements(false)
 			_G.EOW:SetAttacks(false)	
-				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 35, false, false)
+				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 100, false, false)
 			
 			_G.EOW:SetMovements(true)
 			_G.EOW:SetAttacks(true)
 		else
 			
-			self:fast(HK_Q, _Q, target, self:Prediction(target), 35, false, false)
+			self:fast(HK_Q, _Q, target, self:Prediction(target), 100, false, false)
 		end
 		
 	end
