@@ -15,9 +15,9 @@ end
 function KoreanCaitlyn:LoadMenu()
 	self.Menu = MenuElement({type = MENU, id = "KoreanCaitlyn", name = "Korean Caitlyn", leftIcon = "http://i.imgur.com/B1yTPrK.png"})
 	self.Menu:MenuElement({type = MENU, id = "Combo", name = "Korean Caitlyn - Combo Settings"})
-	self.Menu.Combo:MenuElement({id = "HotKeyChanger", name = "Q Hotkey Changer | Auto Q: Mouse", key = 0x5a, toggle = true, value = false})
-	self.Menu.Combo:MenuElement({id = "HotKeyChanger2", name = "Q Hotkey Changer | Disable Q+E In Combo", key = 0x58, toggle = true, value = false})
-	self.Menu.Combo:MenuElement({id = "HotKeyChanger3", name = "Q Hotkey Changer | Auto Trap", key = 0x56, toggle = true, value = false})
+	self.Menu.Combo:MenuElement({id = "HotKeyChanger", name = "Hotkey Changer | Auto Q: Mouse", key = 0x5a, toggle = false, value = false})
+	self.Menu.Combo:MenuElement({id = "HotKeyChanger2", name = "Hotkey Changer | Disable Q+E In Combo", key = 0x58, toggle = true, value = false})
+	self.Menu.Combo:MenuElement({id = "HotKeyChanger3", name = "Hotkey Changer | Auto Trap", key = 0x56, toggle = true, value = false})
 	self.Menu.Combo:MenuElement({id = "ComboQ", name = "Use Q", value = true})
 	self.Menu.Combo:MenuElement({id = "ComboW", name = "Use W", value = true})
 	self.Menu.Combo:MenuElement({id = "ComboE", name = "Use E", value = true})
@@ -90,20 +90,17 @@ function KoreanCaitlyn:BlueTrapDraw()
 		Draw.Circle(Vector(13666, 53, 4617))
 		Draw.Circle(Vector(13870, 52, 4640))
 		Draw.Circle(Vector(13419, 52, 4574))
-	end	
-	if myHero.pos:DistanceTo(Vector(8967, 54, 8501)) < 1050 then -- Blue Mid Tier 3
+	elseif myHero.pos:DistanceTo(Vector(8967, 54, 8501)) < 1050 then -- Blue Mid Tier 3
 		Draw.Circle(Vector(9023, 53, 8314))
 		Draw.Circle(Vector(9000, 54, 8666))
 		Draw.Circle(Vector(8798, 54, 8638))
 		Draw.Circle(Vector(8613, 54, 8767))
-	end	
-	if myHero.pos:DistanceTo(Vector(9780, 52, 10100)) < 1050 then -- Blue Mid Tier 2
+	elseif myHero.pos:DistanceTo(Vector(9780, 52, 10100)) < 1050 then -- Blue Mid Tier 2
 		Draw.Circle(Vector(9936, 52, 9953))
 		Draw.Circle(Vector(10070, 52, 9847))
 		Draw.Circle(Vector(10207, 52, 9739))
-		Draw.Circle(Vector(9607, 52, 10223))
-	end	
-	if myHero.pos:DistanceTo(Vector(11144, 93, 11172)) < 1050 then -- Blue Mid Tier 1
+		Draw.Circle(Vector(9607, 52, 10223))	
+	elseif myHero.pos:DistanceTo(Vector(11144, 93, 11172)) < 1050 then -- Blue Mid Tier 1
 		Draw.Circle(Vector(11233, 91, 10726))
 		Draw.Circle(Vector(11185, 91, 11015))
 	end	
@@ -112,10 +109,8 @@ end
 function KoreanCaitlyn:RedTrapDraw()
 	if myHero.pos:DistanceTo(Vector(10492, 50, 1035)) < 1050 then -- Red Bot Tier 3
 		Draw.Circle(Vector(10524, 50, 830))
-		Draw.Circle(Vector(10362, 50, 1199))
-		
-	end	
-	if myHero.pos:DistanceTo(Vector(5848, 51, 6383)) < 1050 then -- Red Mid Tier 3
+		Draw.Circle(Vector(10362, 50, 1199))	
+	elseif myHero.pos:DistanceTo(Vector(5848, 51, 6383)) < 1050 then -- Red Mid Tier 3
 		Draw.Circle(Vector(5711, 51, 6496))
 		Draw.Circle(Vector(5994, 51, 6253))
 		Draw.Circle(Vector(6143, 51, 6116))
@@ -126,17 +121,19 @@ end
 local startEQCombo = false
 function KoreanCaitlyn:KTDeft(target, target2)
 	
-	if target.pos:DistanceTo(myHero.pos) < 600 and self:IsReady(_E) and self.Menu.Combo.ComboE:Value() and target:GetCollision(E.width,E.speed,E.delay) == 0 then
+	if target.pos:DistanceTo(myHero.pos) < 630 and self:IsReady(_E) and self.Menu.Combo.ComboE:Value() and target:GetCollision(E.width,E.speed,E.delay) == 0 then
 		if target.activeSpell.windup > 0.1 then
 			local possAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
-			
+			_G.EOW:SetMovements(false)
+				_G.EOW:SetAttacks(false)
 
 			self:fast(HK_E, _E, target, possAfterAutoAttack, 10, false, false)
 			
 
 			startEQCombo = true
 		else
-			
+			_G.EOW:SetMovements(false)
+				_G.EOW:SetAttacks(false)
 			self:fast(HK_E, _E, target, self:Prediction(target), 10, false, false)
 				
 			startEQCombo = true
@@ -148,12 +145,15 @@ function KoreanCaitlyn:KTDeft(target, target2)
 			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
 				Draw.Circle(posAfterAutoAttack)
 				
-				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 100, false, false)
-			
+				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 0, false, false)
+			_G.EOW:SetMovements(true)
+				_G.EOW:SetAttacks(true)
 			
 		else
 			
-			self:fast(HK_Q, _Q, target, self:Prediction(target), 100, false, false)
+			self:fast(HK_Q, _Q, target, self:Prediction(target), 0, false, false)
+			_G.EOW:SetMovements(true)
+				_G.EOW:SetAttacks(true)
 		end
 		
 	end
@@ -166,24 +166,19 @@ function KoreanCaitlyn:KTDeft(target, target2)
 	end
 end
 
-local timer = {state = 0, tick = GetTickCount(), casting = GetTickCount() - 1000, mouse = mousePos}
+local timer = {state = 0, tick = GetTickCount(), casting = GetTickCount() - 1000, mouse = mousePos, done = false}
 function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, trap)
 	local keepmousee = keepmouse or false
 	local trap = trap or false
-	if unit == nil then 
-		return 
-	end
 	local target = prediction:To2D()
 
 	local unit2 = unit
 	local myHeroPos = myHero.pos
 	local targetPos = unit2.pos
-	local shootsbackwards
 	local ticker = GetTickCount()
 	
 	if target.onScreen ~= true then
 		PrintChat("OffScreen, please report if still fires: 0001")
-		Control.SetCursorPos(targetPos.x, targetPos.y)
 		return
 	end
 	
@@ -199,11 +194,10 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 		if ticker - timer.tick > 0 and ticker - timer.tick <= 500 then
 			
 			if ticker - timer.tick > 0 and ticker - timer.tick < 10 + Game.Latency() and targetPos:ToScreen().onScreen then
-				if self.predi:DistanceTo(unit.pos) > 600 or target:DistanceTo(unit2.pos:To2D()) > 600 then
+				if self.predi:DistanceTo(unit.pos) > 1250 or target:DistanceTo(unit2.pos:To2D()) > 600 then
 					return
 				end
-				_G.EOW:SetMovements(false)
-				_G.EOW:SetAttacks(false)
+				
 
 				Control.SetCursorPos(target.x, target.y)
 				--if mousePos:DistanceTo(targetPos) > myHeroPos:DistanceTo(targetPos) then
@@ -213,8 +207,8 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 						self.ctimes = true
 				end
 					Control.CastSpell(spell)
-				_G.EOW:SetMovements(true)
-				_G.EOW:SetAttacks(true)
+
+				
 					
 				--end
 				
@@ -223,7 +217,7 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 			
 		end
 		if ticker - timer.tick > 300 + Game.Latency() and keepmousee == false then
-				Control.SetCursorPos(timer.mouse)
+				--Control.SetCursorPos(timer.mouse)
 				timer.state = 0
 		elseif ticker - timer.tick > 300 + Game.Latency() and keepmousee == true then
 				timer.state = 0	
@@ -242,11 +236,11 @@ function KoreanCaitlyn:TrapGod()
 		local target = self:GetValidEnemy()
 		if target == nil then return end
 		local dist = target.pos:DistanceTo(myHero.pos)
-		if dist < 600 and dist > 201 then
-			local predic = target.pos:Extended(self:xPath(target), 375)
-			if predic:DistanceTo(myHero.pos) > 600 then return end		
+		if dist < 775 and dist > 251 then
+			local predic = target.pos:Extended(self:xPath(target), target.ms + 75)
+			if predic:DistanceTo(myHero.pos) > 800 then return end		
 			self:fast(HK_W, _W, target, predic, 100, false, true)
-		elseif dist < 150 then
+		elseif dist < 250 then
 			self:fast(HK_W, _W, target, myHero.pos, 100, false, true)
 		end
 	end
@@ -365,11 +359,10 @@ function KoreanCaitlyn:AutoQ()
 			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
 				Draw.Circle(posAfterAutoAttack)
 				
-				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 50, true, false)
+				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 0, true, false)
 				
 		else
-			
-			self:fast(HK_Q, _Q, target, self:Prediction(target), 50, true, false)
+			self:fast(HK_Q, _Q, target, self:Prediction(target), 0, true, false)
 			
 		end
 	end
