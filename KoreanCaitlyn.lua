@@ -129,20 +129,16 @@ function KoreanCaitlyn:KTDeft(target, target2)
 	if target.pos:DistanceTo(myHero.pos) < 600 and self:IsReady(_E) and self.Menu.Combo.ComboE:Value() and target:GetCollision(E.width,E.speed,E.delay) == 0 then
 		if target.activeSpell.windup > 0.1 then
 			local possAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
-			_G.EOW:SetMovements(false)
-			_G.EOW:SetAttacks(false)
+			
 
 			self:fast(HK_E, _E, target, possAfterAutoAttack, 10, false, false)
-			_G.EOW:SetMovements(true)
-			_G.EOW:SetAttacks(true)
+			
 
 			startEQCombo = true
 		else
-			_G.EOW:SetMovements(false)
-			_G.EOW:SetAttacks(false)
+			
 			self:fast(HK_E, _E, target, self:Prediction(target), 10, false, false)
-				_G.EOW:SetMovements(true)
-				_G.EOW:SetAttacks(true)
+				_
 
 			startEQCombo = true
 		end
@@ -152,12 +148,10 @@ function KoreanCaitlyn:KTDeft(target, target2)
 		if target.activeSpell.windup > 0.1 then
 			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
 				Draw.Circle(posAfterAutoAttack)
-				_G.EOW:SetMovements(false)
-			_G.EOW:SetAttacks(false)	
+				
 				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 100, false, false)
 			
-			_G.EOW:SetMovements(true)
-			_G.EOW:SetAttacks(true)
+			
 		else
 			
 			self:fast(HK_Q, _Q, target, self:Prediction(target), 100, false, false)
@@ -167,6 +161,8 @@ function KoreanCaitlyn:KTDeft(target, target2)
 
 	if self:IsReady(_Q) ~= true and self:IsReady(_E) ~= true then
 		startEQCombo = false
+		_G.EOW:SetMovements(true)
+		_G.EOW:SetAttacks(true)
 		return
 	end
 end
@@ -207,7 +203,9 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 				if self.predi:DistanceTo(unit.pos) > 600 or target:DistanceTo(unit2.pos:To2D()) > 600 then
 					return
 				end
-				
+				_G.EOW:SetMovements(false)
+				_G.EOW:SetAttacks(false)
+
 				Control.SetCursorPos(target.x, target.y)
 				--if mousePos:DistanceTo(targetPos) > myHeroPos:DistanceTo(targetPos) then
 					--return
@@ -216,6 +214,8 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 						self.ctimes = true
 				end
 					Control.CastSpell(spell)
+				_G.EOW:SetMovements(true)
+				_G.EOW:SetAttacks(true)
 					
 				--end
 				
@@ -365,19 +365,13 @@ function KoreanCaitlyn:AutoQ()
 		if target.activeSpell.windup > 0.1 then
 			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
 				Draw.Circle(posAfterAutoAttack)
-				_G.EOW:SetMovements(false)
-				_G.EOW:SetAttacks(false)
-				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 50, true, false)
-					
-				_G.EOW:SetMovements(true)
-				_G.EOW:SetAttacks(true)
-		else
-			_G.EOW:SetMovements(false)
-				_G.EOW:SetAttacks(false)
-			self:fast(HK_Q, _Q, target, self:Prediction(target), 50, true, false)
 				
-				_G.EOW:SetMovements(true)
-				_G.EOW:SetAttacks(true)
+				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 50, true, false)
+				
+		else
+			
+			self:fast(HK_Q, _Q, target, self:Prediction(target), 50, true, false)
+			
 		end
 	end
 end
