@@ -15,7 +15,7 @@ end
 function KoreanCaitlyn:LoadMenu()
 	self.Menu = MenuElement({type = MENU, id = "KoreanCaitlyn", name = "Korean Caitlyn", leftIcon = "http://i.imgur.com/B1yTPrK.png"})
 	self.Menu:MenuElement({type = MENU, id = "Combo", name = "Korean Caitlyn - Combo Settings"})
-	self.Menu.Combo:MenuElement({id = "HotKeyChanger", name = "Hotkey Changer | Auto Q: Mouse", key = 0x5a, toggle = false, value = false})
+	self.Menu.Combo:MenuElement({id = "HotKeyChanger", name = "Hotkey Changer | Auto Q: Mouse", key = 0x5a, toggle = true, value = false})
 	self.Menu.Combo:MenuElement({id = "HotKeyChanger2", name = "Hotkey Changer | Disable Q+E In Combo", key = 0x58, toggle = true, value = false})
 	self.Menu.Combo:MenuElement({id = "HotKeyChanger3", name = "Hotkey Changer | Auto Trap", key = 0x56, toggle = true, value = false})
 	self.Menu.Combo:MenuElement({id = "ComboQ", name = "Use Q", value = true})
