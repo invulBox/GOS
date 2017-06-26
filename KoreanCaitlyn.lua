@@ -123,7 +123,7 @@ function KoreanCaitlyn:KTDeft(target, target2)
 	
 	if target.pos:DistanceTo(myHero.pos) < 630 and self:IsReady(_E) and self.Menu.Combo.ComboE:Value() and target:GetCollision(E.width,E.speed,E.delay) == 0 then
 		if target.activeSpell.windup > 0.1 then
-			local possAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
+			local possAfterAutoAttack = target.pos:Extended(self.lastPath, 75)
 			
 
 			self:fast(HK_E, _E, target, possAfterAutoAttack, 10, false, false)
@@ -140,7 +140,7 @@ function KoreanCaitlyn:KTDeft(target, target2)
 	if self:IsReady(_Q) and self:IsReady(_E) ~= true and self.Menu.Combo.ComboQ:Value() then
 		local offset = 50
 		if target.activeSpell.windup > 0.1 then
-			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
+			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 75)
 				Draw.Circle(posAfterAutoAttack)
 				
 				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 10, false, false)
