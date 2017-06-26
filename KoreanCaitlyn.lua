@@ -162,6 +162,16 @@ function KoreanCaitlyn:KTDeft(target, target2)
 	end
 end
 
+function KoreanCaitlyn:Orbwalker(bool)
+	if _G.SDK.Orbwalker then
+		_G.SDK.Orbwalker:SetMovement(bool)
+		_G.SDK.Orbwalker:SetAttack(bool)
+	elseif _G.EOWLoaded then
+		EOW:SetMovements(bool)
+		EOW:SetAttacks(bool)
+	end
+end
+
 local timer = {state = 0, tick = GetTickCount(), casting = GetTickCount() - 1000, mouse = mousePos, done = false}
 function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, trap)
 	local keepmousee = keepmouse or false
@@ -193,8 +203,7 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 				if self.predi:DistanceTo(unit.pos) > 1250 or target:DistanceTo(unit2.pos:To2D()) > 600 then
 					return
 				end
-				_G.EOW:SetMovements(false)
-				_G.EOW:SetAttacks(false)
+				self:Orbwalker(false)
 
 				Control.SetCursorPos(target.x, target.y)
 				--if mousePos:DistanceTo(targetPos) > myHeroPos:DistanceTo(targetPos) then
@@ -205,8 +214,7 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 				end
 					Control.CastSpell(spell)
 
-				_G.EOW:SetMovements(true)
-				_G.EOW:SetAttacks(true)
+				self:Orbwalker(true)
 					
 				--end
 				
