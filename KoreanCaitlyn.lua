@@ -174,6 +174,14 @@ function KoreanCaitlyn:Orbwalker(bool)
 	end
 end
 
+function KoreanCaitlyn:OrbTarget(range)
+	if _G.SDK.Orbwalker then
+		return _G.SDK.TargetSelector:GetTarget(range, _G.SDK.DAMAGE_TYPE_PHYSICAL)
+	elseif _G.EOWLoaded then
+		return EOW:GetTarget(range)
+	end
+end
+
 local timer = {state = 0, tick = GetTickCount(), casting = GetTickCount() - 1000, mouse = mousePos, done = false}
 function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, trap)
 	local keepmousee = keepmouse or false
@@ -328,7 +336,7 @@ function KoreanCaitlyn:Draw()
 	end
 
 
-	local target = _G.EOW:GetTarget(1100)
+	local target = self:OrbTarget(1100)
 	local target2 =  (_G.GOS and _G.GOS:GetTarget(1100,"AD"))
 
 	if target2 == nil then return end
