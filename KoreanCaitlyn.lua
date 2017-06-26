@@ -71,7 +71,7 @@ function KoreanCaitlyn:Prediction(unit)
 		offset = 50
 	end
 	if self.predictionModified.dodger == false then
-		predictionVector = target.pos:Extended(pathingVector, (distanceToTarget / 3) + target.ms - (self.Menu.Prediction.Am:Value() + 200) - offset)
+		predictionVector = target.pos:Extended(pathingVector, (distanceToTarget / 3) + target.ms - (self.Menu.Prediction.Am:Value() + 230) - offset)
 		
 		Draw.Circle(predictionVector)
 		return predictionVector
@@ -158,8 +158,7 @@ function KoreanCaitlyn:KTDeft(target, target2)
 
 	if self:IsReady(_Q) ~= true and self:IsReady(_E) ~= true then
 		startEQCombo = false
-		_G.EOW:SetMovements(true)
-		_G.EOW:SetAttacks(true)
+		self:Orbwalker(true)
 		return
 	end
 end
@@ -353,12 +352,14 @@ function KoreanCaitlyn:Draw()
 	if _G.SDK then
 		if _G.SDK.Orbwalker.Modes[_G.SDK.ORBWALKER_MODE_COMBO] then
 			if self.Menu.Combo.HotKeyChanger:Value() == false then
-			self:KTDeft(target, target2)
+				self:KTDeft(target, target2)
+			end
 		end	
 	elseif EOWLoaded then
-	if EOW.CurrentMode == 1 then
-		if self.Menu.Combo.HotKeyChanger:Value() == false then
-			self:KTDeft(target, target2)
+		if EOW.CurrentMode == 1 then
+			if self.Menu.Combo.HotKeyChanger:Value() == false then
+				self:KTDeft(target, target2)
+			end
 		end
 	end
 	
@@ -383,7 +384,7 @@ function KoreanCaitlyn:AutoQ()
 	local target = self:GetValidEnemy()
 	if mousePos:DistanceTo(target.pos) < 100 then
 		if target.activeSpell.windup > 0.1 then
-			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
+			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 75)
 				Draw.Circle(posAfterAutoAttack)
 				
 				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 10, true, false)
