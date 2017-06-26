@@ -349,12 +349,21 @@ function KoreanCaitlyn:Draw()
 	if GetTickCount() - timer.tick > 4000 then
 			timer.state = 0
 	end
-
+	
+	if _G.SDK then
+		if _G.SDK.Orbwalker.Modes[_G.SDK.ORBWALKER_MODE_COMBO] then
+			if self.Menu.Combo.HotKeyChanger:Value() == false then
+			self:KTDeft(target, target2)
+		end	
+	elseif EOWLoaded then
 	if EOW.CurrentMode == 1 then
 		if self.Menu.Combo.HotKeyChanger:Value() == false then
 			self:KTDeft(target, target2)
 		end
 	end
+	
+	
+	
 	if self.Menu.Combo.HotKeyChanger:Value() then
 		self:AutoQ()
 	end
