@@ -71,7 +71,7 @@ function KoreanCaitlyn:Prediction(unit)
 		offset = 50
 	end
 	if self.predictionModified.dodger == false then
-		predictionVector = target.pos:Extended(pathingVector, (distanceToTarget / 3) + target.ms - (self.Menu.Prediction.Am:Value() + 230) - offset)
+		predictionVector = target.pos:Extended(pathingVector, (distanceToTarget / 3) + target.ms - (self.Menu.Prediction.Am:Value() + 200) - offset)
 		
 		Draw.Circle(predictionVector)
 		return predictionVector
@@ -123,7 +123,7 @@ function KoreanCaitlyn:KTDeft(target, target2)
 	
 	if target.pos:DistanceTo(myHero.pos) < 630 and self:IsReady(_E) and self.Menu.Combo.ComboE:Value() and target:GetCollision(E.width,E.speed,E.delay) == 0 then
 		if target.activeSpell.windup > 0.1 then
-			local possAfterAutoAttack = target.pos:Extended(self.lastPath, 75)
+			local possAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
 			
 
 			self:fast(HK_E, _E, target, possAfterAutoAttack, 10, false, false)
@@ -140,7 +140,7 @@ function KoreanCaitlyn:KTDeft(target, target2)
 	if self:IsReady(_Q) and self:IsReady(_E) ~= true and self.Menu.Combo.ComboQ:Value() then
 		local offset = 50
 		if target.activeSpell.windup > 0.1 then
-			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 75)
+			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
 				Draw.Circle(posAfterAutoAttack)
 				
 				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 10, false, false)
@@ -252,7 +252,10 @@ function KoreanCaitlyn:TrapGod()
 		if target == nil then return end
 		local dist = target.pos:DistanceTo(myHero.pos)
 		if dist < 775 and dist > 251 then
-			local predic = target.pos:Extended(self:xPath(target), target.ms + 75)
+			if self:IsSnared(target) then
+				self:fast(HK_W, _W, target, target.pos, 10, false, false)
+			end
+			local predic = target.pos:Extended(self:xPath(target), target.ms + 20)
 			if predic:DistanceTo(myHero.pos) > 800 then return end		
 			self:fast(HK_W, _W, target, predic, 100, false, true)
 			self:Orbwalker(true)
@@ -262,7 +265,7 @@ function KoreanCaitlyn:TrapGod()
 		end
 	end
 		
-	if dCoolTimer - staticCoolTimer > 6000 then
+	if dCoolTimer - staticCoolTimer > 4000 then
 		self.counter = false
 		self.ctimes = false
 	end
@@ -296,6 +299,16 @@ function KoreanCaitlyn:Buffs(unit, buffname)
 		if Buff.name:lower() == buffname:lower() then
 			return true
 		end
+	end
+	return false
+end
+
+function KoreanCaitlyn:IsSnared(unit)
+	for i = 0, unit.buffCount do
+		local buff = unit:GetBuff(i)
+			if buff and (buff.type == 11 or buff.type == 5) and buff.count > 0 then
+				return true
+			end
 	end
 	return false
 end
@@ -384,7 +397,7 @@ function KoreanCaitlyn:AutoQ()
 	local target = self:GetValidEnemy()
 	if mousePos:DistanceTo(target.pos) < 100 then
 		if target.activeSpell.windup > 0.1 then
-			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 75)
+			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
 				Draw.Circle(posAfterAutoAttack)
 				
 				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 10, true, false)
