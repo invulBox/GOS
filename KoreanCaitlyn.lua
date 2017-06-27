@@ -122,6 +122,7 @@ local startEQCombo = false
 function KoreanCaitlyn:KTDeft(target, target2)
 	
 	if target.pos:DistanceTo(myHero.pos) < 630 and self:IsReady(_E) and self.Menu.Combo.ComboE:Value() and target:GetCollision(E.width,E.speed,E.delay) == 0 then
+		local pree = self:Prediction(target)
 		if target.activeSpell.windup > 0.1 then
 			local possAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
 			
@@ -130,15 +131,18 @@ function KoreanCaitlyn:KTDeft(target, target2)
 			
 
 			startEQCombo = true
-		else
+		elseif pree ~= nil then
 			
-			self:fast(HK_E, _E, target, self:Prediction(target), 10, false, false)
+			self:fast(HK_E, _E, target, pree, 10, false, false)
 				
 			startEQCombo = true
+		else 
+			self:fast(HK_E, _E, target, target.pos, 10, false, false)
 		end
 	end
 	if self:IsReady(_Q) and self:IsReady(_E) ~= true and self.Menu.Combo.ComboQ:Value() then
 		local offset = 50
+		local pree = self:Prediction(target)
 		if target.activeSpell.windup > 0.1 then
 			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
 				Draw.Circle(posAfterAutoAttack)
@@ -147,11 +151,13 @@ function KoreanCaitlyn:KTDeft(target, target2)
 				self:Orbwalker(true)
 			
 			
-		else
+		elseif pree ~= nil then
 			
 			self:fast(HK_Q, _Q, target, self:Prediction(target), 10, false, false)
 			self:Orbwalker(true)
 			
+		else 
+			self:fast(HK_E, _E, target, target.pos, 10, false, false)
 		end
 		
 	end
@@ -252,7 +258,7 @@ function KoreanCaitlyn:TrapGod()
 		if target == nil then return end
 		local dist = target.pos:DistanceTo(myHero.pos)
 		if dist < 775 and dist > 251 then
-			if self:IsSnared(target) then
+			if self:IsSnared(target) or self:xPath(target) == nil then
 				self:fast(HK_W, _W, target, target.pos, 10, false, false)
 			end
 			local predic = target.pos:Extended(self:xPath(target), target.ms + 20)
@@ -395,6 +401,7 @@ end
 function KoreanCaitlyn:AutoQ()
 	if self:IsReady(_Q) ~= true or self.Menu.Combo.ComboQ:Value() ~= true then return end
 	local target = self:GetValidEnemy()
+	local pree = self:Prediction(target)
 	if mousePos:DistanceTo(target.pos) < 100 then
 		if target.activeSpell.windup > 0.1 then
 			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
@@ -402,8 +409,10 @@ function KoreanCaitlyn:AutoQ()
 				
 				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 10, true, false)
 				
+		elseif pree ~= nil then
+			self:fast(HK_Q, _Q, target, pree, 10, true, false)
 		else
-			self:fast(HK_Q, _Q, target, self:Prediction(target), 10, true, false)
+			self:fast(HK_Q, _Q, target, target.pos, 10, true, false)
 			
 		end
 	end
