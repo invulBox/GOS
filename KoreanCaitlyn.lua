@@ -62,6 +62,7 @@ function KoreanCaitlyn:Prediction(unit)
 	local target = unit
 	local offset = 50
 	local pathingVector = self:xPath(target)
+	if pathingVector == nil then return end
 	local distanceToTarget = myHero.pos:DistanceTo(target.pos)
 	local predictionVector
 	local dirt = myHero.pos:DistanceTo(unit.pos)
@@ -157,7 +158,8 @@ function KoreanCaitlyn:KTDeft(target, target2)
 			self:Orbwalker(true)
 			
 		else 
-			self:fast(HK_E, _E, target, target.pos, 10, false, false)
+			
+			self:fast(HK_Q, _Q, target, target.pos, 10, false, false)
 		end
 		
 	end
@@ -192,6 +194,7 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 	local keepmousee = keepmouse or false
 	local trap = trap or false
 	local target = prediction:To2D()
+	local done = false
 
 	local unit2 = unit
 	local myHeroPos = myHero.pos
@@ -230,6 +233,7 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 					Control.CastSpell(spell)
 
 				self:Orbwalker(true)
+				done = true
 					
 				--end
 				
@@ -237,7 +241,7 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 			end
 			
 		end
-		if ticker - timer.tick > 300 + Game.Latency() and keepmousee == false then
+		if ticker - timer.tick > 300 + Game.Latency() and keepmousee == false or done == true then
 				--Control.SetCursorPos(timer.mouse)
 				timer.state = 0
 		elseif ticker - timer.tick > 300 + Game.Latency() and keepmousee == true then
@@ -402,17 +406,23 @@ function KoreanCaitlyn:AutoQ()
 	if self:IsReady(_Q) ~= true or self.Menu.Combo.ComboQ:Value() ~= true then return end
 	local target = self:GetValidEnemy()
 	local pree = self:Prediction(target)
+	local wtf = false
 	if mousePos:DistanceTo(target.pos) < 100 then
+		if pree ~= nil then
+			wtf = true 
+		end
 		if target.activeSpell.windup > 0.1 then
 			local posAfterAutoAttack = target.pos:Extended(self.lastPath, 50)
 				Draw.Circle(posAfterAutoAttack)
 				
 				self:fast(HK_Q, _Q, target, posAfterAutoAttack, 10, true, false)
 				
-		elseif pree ~= nil then
+		elseif wtf == true then
+		
 			self:fast(HK_Q, _Q, target, pree, 10, true, false)
-		else
-			self:fast(HK_Q, _Q, target, target.pos, 10, true, false)
+		end
+		if wtf == false then
+				Control.CastSpell(HK_Q, target.pos)
 			
 		end
 	end
