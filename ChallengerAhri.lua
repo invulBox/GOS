@@ -2,6 +2,7 @@ class "ChallengerAhri"
 
 
 function ChallengerAhri:__init()
+	if myHero.charName ~= "Ahri" then return end
 	self:LoadSpells()
     self:LoadMenu()
     Callback.Add("Draw", function() self:Draw() end)
