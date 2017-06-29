@@ -89,6 +89,7 @@ end
 
 function ChallengerAhri:Burst(aphromoo, yoff)
 	local target = _G.SDK.TargetSelector:GetTarget(870, _G.SDK.DAMAGE_TYPE_PHYSICAL)
+	if target == nil then return end
 	if self:IsReady(_W) then
 		Control.KeyDown(HK_W)
 		if self:IsReady(_E) then
