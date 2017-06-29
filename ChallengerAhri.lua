@@ -245,11 +245,11 @@ function ChallengerAhri:Draw()
 		self:ClickTimer(69, unit, HK_Q, "ComboQ")
 	end
 	
-	if target.health < 200 and self.Menu.Ignite.IG:Value() and self:IsReady(SUMMONER_2) and myHero:GetSpellData(SUMMONER_2).name == "SummonerDot" then -- :D ya~
-		self:ClickTimer(69, target, HK_SUMMONER_2, "Burst", true)
-	elseif target.health < 201 and self.Menu.Ignite.IG:Value() and self:IsReady(SUMMONER_1) and myHero:GetSpellData(SUMMONER_1).name == "SummonerDot" then -- :_D
-		self:ClickTimer(69, target, HK_SUMMONER_1, "Burst", true)
-	end
+	--if target.health < 200 and self.Menu.Ignite.IG:Value() and self:IsReady(SUMMONER_2) and myHero:GetSpellData(SUMMONER_2).name == "SummonerDot" then -- :D ya~
+		--self:ClickTimer(69, target, HK_SUMMONER_2, "Burst", true)
+	--elseif target.health < 201 and self.Menu.Ignite.IG:Value() and self:IsReady(SUMMONER_1) and myHero:GetSpellData(SUMMONER_1).name == "SummonerDot" then -- :_D
+		--self:ClickTimer(69, target, HK_SUMMONER_1, "Burst", true)
+	--end
 
 	
 end
