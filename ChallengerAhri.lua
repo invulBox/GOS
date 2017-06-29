@@ -93,7 +93,7 @@ function ChallengerAhri:Burst(aphromoo, yoff)
 	if self:IsReady(_W) then
 		Control.KeyDown(HK_W)
 		if self:IsReady(_E) and target:GetCollision(E.width,E.speed,E.delay) == 0 then
-			Control.SetCursorPos(aphromoo.x, yoff)
+			Control.SetCursorPos(aphromoo.x, aphromoo.y)
 			Control.KeyDown(HK_E)
 			Control.KeyUp(HK_E)
 			Control.KeyUp(HK_W)
@@ -104,7 +104,7 @@ function ChallengerAhri:Burst(aphromoo, yoff)
 	end
 
 	if self:IsReady(_Q) then 
-		Control.SetCursorPos(aphromoo.x, yoff)
+		Control.SetCursorPos(aphromoo.x, aphromoo.y)
 		Control.KeyDown(HK_Q)
 		Control.KeyUp(HK_Q)
 	end
@@ -126,26 +126,6 @@ function ChallengerAhri:ClickTimer(spellPos, target, spell, comb, sum)
 	local h2d = myHero.pos:To2D()
 	local t2d = target.pos:To2D()
 	local aphromoo = self:Prediction(target):To2D()
-	local yoff
-	local yoff = 0
-	local offs = 10
-	if h2d.y > t2d.y then
-		if h2d:Compare(t2d) > 1 then
-			yoff = aphromoo.y + offs
-		else
-			yoff = aphromoo.y - offs
-		end
-	end
-	if h2d.y < t2d.y then
-		if h2d:Compare(t2d) < 1 then
-			yoff = aphromoo.y + offs
-		else
-			yoff = aphromoo.y - offs
-		end
-	end
-
-
-	
 
 	if timer.state == false and timer.inQueue == false then
 		self.clickCounter = self.clickCounter + 1
@@ -160,7 +140,7 @@ function ChallengerAhri:ClickTimer(spellPos, target, spell, comb, sum)
 		if summ == false and comb == "Burst" then
 			_G.SDK.Orbwalker:SetMovement(false)
 			_G.SDK.Orbwalker:SetAttack(false)
-			Control.SetCursorPos(aphromoo.x, yoff)
+			Control.SetCursorPos(aphromoo.x, aphromoo.y)
 			self:Burst(aphromoo, yoff)
 			_G.SDK.Orbwalker:SetMovement(true)
 			_G.SDK.Orbwalker:SetAttack(true)
@@ -173,7 +153,7 @@ function ChallengerAhri:ClickTimer(spellPos, target, spell, comb, sum)
 		if comb == "ComboQ" then
 			_G.SDK.Orbwalker:SetMovement(false)
 			_G.SDK.Orbwalker:SetAttack(false)
-			Control.SetCursorPos(aphromoo.x, yoff)
+			Control.SetCursorPos(aphromoo.x, aphromoo.y)
 			self:ComboQ(aphromoo, yoff)
 			_G.SDK.Orbwalker:SetMovement(true)
 			_G.SDK.Orbwalker:SetAttack(true)
