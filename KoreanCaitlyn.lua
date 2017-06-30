@@ -172,7 +172,7 @@ function KoreanCaitlyn:KTDeft(target, target2)
 end
 
 function KoreanCaitlyn:Orbwalker(bool)
-	if _G.SDK.Orbwalker then
+	if  _G.SDK and _G.SDK.Orbwalker then
 		_G.SDK.Orbwalker:SetMovement(bool)
 		_G.SDK.Orbwalker:SetAttack(bool)
 	elseif _G.EOWLoaded then
@@ -182,7 +182,7 @@ function KoreanCaitlyn:Orbwalker(bool)
 end
 
 function KoreanCaitlyn:OrbTarget(range)
-	if _G.SDK.Orbwalker then
+	if  _G.SDK and _G.SDK.Orbwalker then
 		return _G.SDK.TargetSelector:GetTarget(range, _G.SDK.DAMAGE_TYPE_PHYSICAL)
 	elseif _G.EOWLoaded then
 		return EOW:GetTarget(range)
