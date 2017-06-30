@@ -92,13 +92,13 @@ function ChallengerAhri:Burst(aphromoo, yoff)
 	if target == nil then return end
 	if self:IsReady(_W) then
 		Control.KeyDown(HK_W)
-		if self:IsReady(_E) and target:GetCollision(E.width,E.speed,E.delay) == 0 then
+		if self:IsReady(_E) and target:GetCollision(100,E.speed,E.delay) == 0 then
 			Control.SetCursorPos(aphromoo.x, aphromoo.y)
 			Control.KeyDown(HK_E)
 			Control.KeyUp(HK_E)
 			Control.KeyUp(HK_W)
 		end
-	elseif self:IsReady(_E) and target:GetCollision(E.width,E.speed,E.delay) == 0 then
+	elseif self:IsReady(_E) and target:GetCollision(100,E.speed,E.delay) == 0 then
 		Control.KeyDown(HK_E)
 		Control.KeyUp(HK_E)
 	end
