@@ -241,7 +241,7 @@ function KoreanMorgana:StartQ()
 	local target = (_G.GOS and _G.GOS:GetTarget(1000,"AD"))
 	if target == nil or self:IsValidTarget(target,1000) == false then return 
 	end
-	if target.pos:DistanceTo(myHero.pos) <= 1000 and self:IsReady(_Q) and self.Menu.Combo.ComboQ:Value() and target:GetCollision(Q.width,Q.speed,Q.delay) == 0 then
+	if target.pos:DistanceTo(myHero.pos) <= 1000 and self:IsReady(_Q) and self.Menu.Combo.ComboQ:Value() and target:GetCollision(150,Q.speed,Q.delay) == 0 then
 		if target.activeSpell.windup > 0.1 and self.Menu.Combo.HotKeyChanger:Value()  then
 			self:SearchForDash(target)
 			if self.ShootDelay[target.charName] ~= nil then
