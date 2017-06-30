@@ -132,12 +132,12 @@ function KoreanCaitlyn:KTDeft(target, target2)
 			
 
 			startEQCombo = true
-		elseif pree ~= nil then
+		elseif pree ~= nil and and target:GetCollision(E.width,E.speed,E.delay) == 0 then
 			
 			self:fast(HK_E, _E, target, pree, 10, false, false)
 				
 			startEQCombo = true
-		else 
+		elseif target:GetCollision(E.width,E.speed,E.delay) == 0
 			self:fast(HK_E, _E, target, target.pos, 10, false, false)
 		end
 	end
