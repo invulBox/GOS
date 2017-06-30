@@ -2,6 +2,7 @@ class "KoreanCaitlyn"
 
 
 function KoreanCaitlyn:__init()
+	
 	self:LoadSpells()
     self:LoadMenu()
     Callback.Add("Draw", function() self:Draw() end)
