@@ -2,8 +2,8 @@ class "KoreanCaitlyn"
 
 
 function KoreanCaitlyn:__init()
-	
-	self:LoadSpells()
+    if myHero.charName ~= "Caitlyn" then return end
+    self:LoadSpells()
     self:LoadMenu()
     Callback.Add("Draw", function() self:Draw() end)
 
