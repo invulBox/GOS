@@ -40,7 +40,7 @@ end
 function Jax:Tick() -- Draw, for callback "Tick" as shown in __init
 	local target = _G.GOS and _G.GOS:GetTarget(Q.Range, "AD") -- Read below, GetTarget(range, type) function in GOS orbwalker that returns a object (which is gonna be ex: Vayne)
 	if _G.GOS and _G.GOS:GetMode() == "Combo" then -- "_G." means we're calling a global class, GOS is GoS orbwalker, GOS:GetTarget() is a function in the class GOS (like we're calling self:IsTargetValid)
-		if self:IsValidTarget(target, Q.Range) and self:IsReady(_Q) and self.Menu.Combo.ComboQ:Value() then
+		if self:IsValidTarget(target, Q.Range) and self:IsReady(_Q) and self.Menu.Combo.ComboQ:Value() then -- self:IsValidTarget() is our function with the parameters (target, range), self:IsReady() our function with the parameter _Q (search the api for _Q), self.Menu.Combo.ComboQ:Value() returns the value of "value =" as applied in the LoadMenu function
 			Control.CastSpell(HK_Q, target.pos) -- Part of GoS api, CastSpell(hotkey, vector), will press hotkey and if vector is included will move mouse to vector.
 		end
 
