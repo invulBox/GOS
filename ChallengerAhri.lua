@@ -27,6 +27,7 @@ function ChallengerAhri:LoadMenu()
 	self.Menu:MenuElement({type = MENU, id = "Ignite", name = "Challenger Ahri - Utility Settings"})
 	self.Menu.Ignite:MenuElement({id = "IG", name = "Use Ignite", value = true})
 	self.Menu:MenuElement({type = MENU, id = "Draw", name = "Challenger Ahri - Draw Settings"})
+	self.Menu.Draw:MenuElement({id = "DrawMana", name = "Low Mana", value = true})
 	self.Menu.Draw:MenuElement({id = "DrawQ", name = "Q Range", value = true})
 	self.Menu.Draw:MenuElement({id = "DrawW", name = "W Range", value = true})
 	self.Menu.Draw:MenuElement({id = "DrawE", name = "E Range", value = true})
@@ -35,10 +36,10 @@ function ChallengerAhri:LoadMenu()
 end
 
 function ChallengerAhri:LoadSpells()
-	Q = {Range = myHero:GetSpellData(_Q).range, Delay = myHero:GetSpellData(_Q).delay, Radius = myHero:GetSpellData(_Q).radius, Speed = myHero:GetSpellData(_Q).speed}
-	W = {Range = myHero:GetSpellData(_W).range, Delay = myHero:GetSpellData(_W).delay, Radius = myHero:GetSpellData(_Q).radius, Speed = 0}
-	E = {Range = myHero:GetSpellData(_W).range, Delay = myHero:GetSpellData(_E).delay, Radius = myHero:GetSpellData(_Q).radius, Speed = 0}
-	R = {Range = myHero:GetSpellData(_W).range, Delay = myHero:GetSpellData(_R).delay, Radius = myHero:GetSpellData(_R).radius, Speed = 0}
+	Q = {Range = 890, Delay = myHero:GetSpellData(_Q).delay, Radius = myHero:GetSpellData(_Q).radius, Speed = myHero:GetSpellData(_Q).speed}
+	W = {Range = 700, Delay = myHero:GetSpellData(_W).delay, Radius = myHero:GetSpellData(_Q).radius, Speed = 0}
+	E = {Range = 975, Delay = myHero:GetSpellData(_E).delay, Radius = myHero:GetSpellData(_Q).radius, Speed = 0}
+	R = {Range = 450, Delay = myHero:GetSpellData(_R).delay, Radius = myHero:GetSpellData(_R).radius, Speed = 0}
 end
 
 function ChallengerAhri:xPath(unit)
@@ -88,7 +89,7 @@ function ChallengerAhri:Prediction(unit)
 end
 
 function ChallengerAhri:Burst(aphromoo, yoff)
-	local target = _G.SDK.TargetSelector:GetTarget(870, _G.SDK.DAMAGE_TYPE_PHYSICAL)
+	local target = _G.SDK.TargetSelector:GetTarget(880, _G.SDK.DAMAGE_TYPE_PHYSICAL)
 	if target == nil then return end
 	if self:IsReady(_W) then
 		Control.KeyDown(HK_W)
@@ -98,7 +99,7 @@ function ChallengerAhri:Burst(aphromoo, yoff)
 			Control.KeyUp(HK_E)
 			Control.KeyUp(HK_W)
 		end
-	elseif self:IsReady(_E) and target:GetCollision(100,E.speed,E.delay) == 0 then
+	elseif self:IsReady(_E) and target:GetCollision(80,E.speed,E.delay) == 0 then
 		Control.KeyDown(HK_E)
 		Control.KeyUp(HK_E)
 	end
@@ -171,11 +172,20 @@ function ChallengerAhri:ClickTimer(spellPos, target, spell, comb, sum)
 
 end
 
+function ChallengerAhri:LowMana()
+	if myHero.mana < myHero.maxMana / 2 then
+		return true
+	end
+end
+
 function ChallengerAhri:IsReady (spell)
 	return Game.CanUseSpell(spell) == 0 
 end
 function ChallengerAhri:Draw()
 	local textPos = myHero.pos:To2D()
+	if self.Menu.Draw.DrawMana:Value() and self:LowMana() then
+		Draw.Text("Low Mana", 20, textPos.x - 25, textPos.y - 125, Draw.Color(200, 255, 0, 0))
+	end
 	if self.Menu.Combo.HotKeyChanger2:Value() then
 			
 			Draw.Text("Auto Combo To Cursor", textPos.x, textPos.y + 40)
