@@ -173,7 +173,7 @@ function ChallengerAhri:ClickTimer(spellPos, target, spell, comb, sum)
 end
 
 function ChallengerAhri:LowMana()
-	if myHero.mana < myHero.maxMana / 2 then
+	if myHero.mana < myHero.maxMana / 3 then
 		return true
 	end
 end
@@ -216,9 +216,9 @@ function ChallengerAhri:Draw()
 	
 	if _G.SDK then
 		if _G.SDK.Orbwalker.Modes[_G.SDK.ORBWALKER_MODE_COMBO] then
-			if self:IsReady(_Q) then
+			
 				self:ClickTimer(69, target, HK_Q, "Burst")
-			end
+			
 		end	
 	end
 	if GetTickCount() - timer.tick > (2000 + Game.Latency()) then
