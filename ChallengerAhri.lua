@@ -11,7 +11,7 @@ function ChallengerAhri:__init()
     self.lastPath = 0
     self.counter = false
     self.ctimes = false
-    self.clickCounter = 0
+    self.clickCounter = 1
 end
 
 function ChallengerAhri:LoadMenu()
