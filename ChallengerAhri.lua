@@ -141,7 +141,6 @@ function ChallengerAhri:ClickTimer(spellPos, target, spell, comb, sum)
 		if summ == false and comb == "Burst" then
 			_G.SDK.Orbwalker:SetMovement(false)
 			_G.SDK.Orbwalker:SetAttack(false)
-			Control.SetCursorPos(aphromoo.x, aphromoo.y)
 			self:Burst(aphromoo, yoff)
 			_G.SDK.Orbwalker:SetMovement(true)
 			_G.SDK.Orbwalker:SetAttack(true)
