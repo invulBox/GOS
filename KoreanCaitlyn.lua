@@ -2,10 +2,11 @@ class "KoreanCaitlyn"
 
 
 function KoreanCaitlyn:__init()
-    if myHero.charName ~= "Caitlyn" then return end
-    self:LoadSpells()
+	
+	self:LoadSpells()
     self:LoadMenu()
     Callback.Add("Draw", function() self:Draw() end)
+	Callback.Add("Tick", function() self:Tick() end)
 
     self.predictionModified = {champion = "Ezreal", dodger = false}
     self.lastPath = 0
@@ -122,7 +123,6 @@ end
 
 local startEQCombo = false
 function KoreanCaitlyn:KTDeft(target, target2)
-	
 	if target.pos:DistanceTo(myHero.pos) < 630 and self:IsReady(_E) and self.Menu.Combo.ComboE:Value() and target:GetCollision(E.width,E.speed,E.delay) == 0 then
 		local pree = self:Prediction(target)
 		if target.activeSpell.windup > 0.1 then
@@ -203,7 +203,6 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 	local ticker = GetTickCount()
 	
 	if target.onScreen ~= true then
-		PrintChat("OffScreen, please report if still fires: 0001")
 		return
 	end
 	
@@ -216,9 +215,9 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 
 	if timer.state == 1 then
 		
-		if ticker - timer.tick > 0 and ticker - timer.tick <= 500 then
-			
-			if ticker - timer.tick > 0 and ticker - timer.tick < 10 + Game.Latency() and targetPos:ToScreen().onScreen then
+		if ticker - timer.tick <= 300 then
+			if target == nil then timer.state = 0  return end
+			if ticker - timer.tick < 10 + Game.Latency() and targetPos:ToScreen().onScreen then
 				if self.predi:DistanceTo(unit.pos) > 1250 or target:DistanceTo(unit2.pos:To2D()) > 600 then
 					return
 				end
@@ -242,11 +241,13 @@ function KoreanCaitlyn:fast(spell, spell2, unit, prediction, delay, keepmouse, t
 			end
 			
 		end
-		if ticker - timer.tick > 300 + Game.Latency() and keepmousee == false or done == true then
+		if ticker - timer.tick > 400 + Game.Latency() and keepmousee == false or done == true then
 				--Control.SetCursorPos(timer.mouse)
 				timer.state = 0
-		elseif ticker - timer.tick > 300 + Game.Latency() and keepmousee == true then
+				done = false
+		elseif ticker - timer.tick > 400 + Game.Latency() and keepmousee == true then
 				timer.state = 0	
+				done = false
 		end
 	end
 end
@@ -260,7 +261,7 @@ function KoreanCaitlyn:TrapGod()
 	end
 	if self.counter == true and self.ctimes == false then
 		local target = self:GetValidEnemy()
-		if target == nil then return end
+		if target == nil then self.counter = false return end
 		local dist = target.pos:DistanceTo(myHero.pos)
 		if dist < 775 and dist > 251 then
 			if self:IsSnared(target) or self:xPath(target) == nil then
@@ -285,7 +286,7 @@ end
 function KoreanCaitlyn:GetValidEnemy()
     for i = 1,Game.HeroCount() do
         local enemy = Game.Hero(i)
-        if  enemy.team ~= myHero.team and enemy.valid and enemy.pos:DistanceTo(myHero.pos) < 1500 then
+        if  enemy.team ~= myHero.team and enemy.valid and enemy.pos:DistanceTo(myHero.pos) < 1000 then
             return enemy
         end
     end
@@ -324,6 +325,11 @@ function KoreanCaitlyn:IsSnared(unit)
 	return false
 end
 
+function KoreanCaitlyn:Tick()
+	if self:IsReady(_W) and self.Menu.Combo.HotKeyChanger3:Value() then
+		self:TrapGod()
+	end
+end
 
 function KoreanCaitlyn:Draw()
 	local textPos = myHero.pos:To2D()
@@ -393,9 +399,7 @@ function KoreanCaitlyn:Draw()
 		self:AutoQ()
 	end
 
-	if self:IsReady(_W) and self.Menu.Combo.HotKeyChanger3:Value() then
-		self:TrapGod()
-	end
+	
 
 	if self.Menu.Draw.DrawTraps:Value() then
 		self:BlueTrapDraw()
