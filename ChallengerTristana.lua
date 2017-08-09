@@ -28,10 +28,9 @@ function ChallengerTristana:LoadMenu()
 	self.Menu.Combo:MenuElement({id = "ComboR", name = "Use R", value = true})
 
 	self.Menu:MenuElement({type = MENU, id = "Draw", name = "ChallengerTristana Draw Settings"}) 
-	self.Menu.Draw:MenuElement({id = "DrawQ", name = "Q Range", value = true})
-	self.Menu.Draw:MenuElement({id = "DrawW", name = "W Range", value = true})
+	self.Menu.Draw:MenuElement({id = "DrawW", name = "W Range", value = false})
 	self.Menu.Draw:MenuElement({id = "DrawE", name = "E Range", value = true})
-	self.Menu.Draw:MenuElement({id = "DrawR", name = "R Range", value = true})
+	self.Menu.Draw:MenuElement({id = "DrawR", name = "R Range", value = false})
 end
 local timer = {state = false, tick = GetTickCount(), mouse = mousePos, done = false, delayer = GetTickCount()}
 function ChallengerTristana:CastSpell(targetPos, spell)
@@ -133,7 +132,7 @@ function ChallengerTristana:Draw()
 	local ctc = Game.Timer() * 100
 	Draw.Text(tostring(myHero.activeSpell.castEndTime), 500, 200)
 	local target = _G.SDK.TargetSelector:GetTarget(900, _G.SDK.DAMAGE_TYPE_PHYSICAL)
-	if self.Menu.Combo.BufferW:Value() and self:CheckSpell(900) and grabTime ~= nil then 
+	if self.Menu.Combo.BufferW:Value() and self:CheckSpell(900) and grabTime ~= nil and self:IsReady(_W) then 
 		if myHero.pos:DistanceTo(target.pos) > 500 then
 			if ctc - grabTime >= 28 then
 				local jump = myHero.pos:Shortened(target.pos, 700)
