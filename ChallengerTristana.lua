@@ -134,7 +134,7 @@ function ChallengerTristana:Draw()
 	local target = _G.SDK.TargetSelector:GetTarget(900, _G.SDK.DAMAGE_TYPE_PHYSICAL)
 	if self.Menu.Combo.BufferW:Value() and self:CheckSpell(900) and grabTime ~= nil and self:IsReady(_W) then 
 		if myHero.pos:DistanceTo(target.pos) > 350 then
-			if ctc - grabTime >= 25 then
+			if ctc - grabTime >= 28 then
 				local jump = myHero.pos:Shortened(target.pos, 700)
 				_G.SDK.Orbwalker:SetMovement(false)
 				_G.SDK.Orbwalker:SetAttack(false)
