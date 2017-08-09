@@ -128,9 +128,9 @@ function ChallengerTristana:Draw()
 		_G.SDK.Orbwalker:SetMovement(true)
 		_G.SDK.Orbwalker:SetAttack(true)
 	end
-	Draw.Text(tostring(myHero.pos:DistanceTo(mousePos)), 500, 300)
+
 	local ctc = Game.Timer() * 100
-	Draw.Text(tostring(myHero.activeSpell.castEndTime), 500, 200)
+	
 	local target = _G.SDK.TargetSelector:GetTarget(900, _G.SDK.DAMAGE_TYPE_PHYSICAL)
 	if self.Menu.Combo.BufferW:Value() and self:CheckSpell(900) and grabTime ~= nil and self:IsReady(_W) then 
 		if myHero.pos:DistanceTo(target.pos) > 350 then
