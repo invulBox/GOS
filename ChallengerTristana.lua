@@ -1,6 +1,7 @@
 class "ChallengerTristana" 
 
 function ChallengerTristana:__init() 
+	if myHero.charName ~= "Tristana" then return end
 	self:LoadSpells() 
 	self:LoadMenu() 
 	Callback.Add("Tick", function() self:Tick() end) 
@@ -20,7 +21,8 @@ function ChallengerTristana:LoadMenu()
 	self.Menu = MenuElement({type = MENU, id = "ChallengerTristana", name = "TheChallengerTristanaScript", leftIcon = "http://i.imgur.com/B1yTPrK.png"})
 	self.Menu:MenuElement({type = MENU, id = "Combo", name = "ChallengerTristana Combo Settings"})
 	self.Menu.Combo:MenuElement({id = "FocusE", name = "Focus E Target", value = true})
-	self.Menu.Combo:MenuElement({id = "BufferW", name = "W Cancel CC", value = true})
+	self.Menu.Combo:MenuElement({id = "BufferW", name = "Hotkey Changer | W Cancel CC", key = 0x5a, toggle = true, value = true})
+	self.Menu.Combo:MenuElement({id = "BufferW", name = "", value = true})
 	self.Menu.Combo:MenuElement({id = "ComboQ", name = "Use Q", value = true})
 	self.Menu.Combo:MenuElement({id = "ComboW", name = "Use W", value = true})
 	self.Menu.Combo:MenuElement({id = "ComboE", name = "Use E", value = true})
@@ -113,6 +115,22 @@ end
 local RDamage
 
 function ChallengerTristana:Draw() 
+	local myHeroPositionAsVector2D = myHero.pos:To2D() 
+	if self.Menu.Draw.DrawE:Value() then
+		Draw.Circle(myHero.pos, E.Range, 1, Draw.Color(255, 255, 255, 255)) 
+	end
+	if self.Menu.Combo.BufferW:Value() then
+		Draw.Text("Auto W Buffer: Enabled", myHeroPositionAsVector2D.x, myHeroPositionAsVector2D.y) 
+	end
+	if self.Menu.Draw.DrawW:Value() then
+		Draw.Circle(myHero.pos, W.Range, 1, Draw.Color(255, 255, 255, 255)) 
+	end
+	if GetTickCount - timer.tick > 900 and GetTickCount - timer.tick < 1200 then 
+		timer.state = false
+		_G.SDK.Orbwalker:SetMovement(true)
+		_G.SDK.Orbwalker:SetAttack(true)
+	end
+	
 	local ctc = Game.Timer() * 100
 	Draw.Text(tostring(myHero.activeSpell.castEndTime), 500, 200)
 	local target = _G.SDK.TargetSelector:GetTarget(900, _G.SDK.DAMAGE_TYPE_PHYSICAL)
@@ -169,10 +187,7 @@ function ChallengerTristana:Draw()
 			end
 		end
 	end
-	--local myHeroPositionAsVector2D = myHero.pos:To2D() 
-	--if self.Menu.Draw.DrawQ:Value() then
-		--Draw.Circle(myHero.pos, Q.Range, 1, Draw.Color(255, 255, 255, 255)) 
-	--end
+	
 end
 
 function ChallengerTristana:Tick() 
