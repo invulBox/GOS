@@ -20,7 +20,7 @@ end
 function ChallengerTristana:LoadMenu()
 	self.Menu = MenuElement({type = MENU, id = "ChallengerTristana", name = "TheChallengerTristanaScript", leftIcon = "http://i.imgur.com/B1yTPrK.png"})
 	self.Menu:MenuElement({type = MENU, id = "Combo", name = "ChallengerTristana Combo Settings"})
-	self.Menu.Combo:MenuElement({id = "FocusE", name = "Focus E Target", value = true})
+	self.Menu.Combo:MenuElement({id = "FocusE", name = "Focus E Target", value = false})
 	self.Menu.Combo:MenuElement({id = "BufferW", name = "Hotkey Changer | W Cancel CC", key = 0x5a, toggle = true, value = true})
 	self.Menu.Combo:MenuElement({id = "ComboQ", name = "Use Q", value = true})
 	self.Menu.Combo:MenuElement({id = "ComboW", name = "Use W", value = true})
