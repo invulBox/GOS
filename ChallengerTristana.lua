@@ -123,7 +123,7 @@ function ChallengerTristana:Draw()
 	if self.Menu.Draw.DrawW:Value() then
 		Draw.Circle(myHero.pos, W.Range, 1, Draw.Color(255, 255, 255, 255)) 
 	end
-	if GetTickCount() - timer.tick > 900 and GetTickCount() - timer.tick < 1200 then 
+	if GetTickCount() - timer.tick > 300 and GetTickCount() - timer.tick < 700 then 
 		timer.state = false
 		_G.SDK.Orbwalker:SetMovement(true)
 		_G.SDK.Orbwalker:SetAttack(true)
